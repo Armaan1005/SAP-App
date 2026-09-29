@@ -1,0 +1,302 @@
+:root {
+  --ability-bg: #f4f6f5;
+  --ability-surface: #fbfcfb;
+  --ability-surface-soft: #eef3f1;
+  --ability-border: #d7e0dc;
+  --ability-text: #24312d;
+  --ability-muted: #53645e;
+  --ability-accent: #2f6f68;
+  --ability-accent-soft: #dcebe7;
+  --ability-focus: #1d5f58;
+}
+
+.abilityPage,
+.abilityPage .sapMPageBgStandard {
+  background: var(--ability-bg);
+}
+
+.abilityPage .sapMPageHeader {
+  background: var(--ability-surface);
+  border-bottom: 1px solid var(--ability-border);
+  box-shadow: none;
+}
+
+.abilityPage .sapMPageHeader .sapMBarMiddle .sapMTitle {
+  color: var(--ability-text);
+  font-family: "72", "72full", Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-left: 1.25rem;
+  text-transform: uppercase;
+}
+
+.abilityPage .sapMPageHeader .sapMBarMiddle {
+  position: static;
+  justify-content: flex-start;
+  transform: none;
+  width: auto;
+}
+
+.connectionStatus {
+  margin-right: 1rem;
+}
+
+.abilityShell {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding-top: 1.25rem;
+}
+
+.workspaceIntro {
+  padding: 1.75rem 1.75rem 1.5rem;
+  background: var(--ability-surface);
+  border: 1px solid var(--ability-border);
+  border-radius: 1rem;
+}
+
+.eyebrowText {
+  color: var(--ability-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pageHeading {
+  color: var(--ability-text);
+  margin-top: 0.25rem;
+}
+
+.pageIntro,
+.sectionDescription,
+.itemDescription {
+  color: var(--ability-muted);
+  line-height: 1.5;
+}
+
+.roleSwitcher {
+  padding: 1rem 1.25rem;
+  background: var(--ability-surface-soft);
+  border: 1px solid var(--ability-border);
+  border-radius: 0.75rem;
+}
+
+.sectionLabel {
+  color: var(--ability-text);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.abilityNavigation .sapMITBHead {
+  background: var(--ability-surface);
+  border: 1px solid var(--ability-border);
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  height: auto;
+  min-height: 7.25rem;
+  overflow: visible;
+  padding: 0.75rem 0.5rem 0.75rem;
+  width: 100%;
+}
+
+.abilityNavigation .sapMITH,
+.abilityNavigation .sapMITBHeadContainer {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  padding: 0;
+}
+
+.abilityNavigation .sapMITBScrollContainer,
+.abilityNavigation .sapMITBArrowScroll {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  height: auto;
+  overflow: visible;
+}
+
+.abilityNavigation .sapMITBFilter {
+  box-sizing: border-box;
+  min-width: 7rem;
+  min-height: 6rem;
+  padding: 0.25rem 0.5rem 1rem;
+  vertical-align: top;
+}
+
+.abilityNavigation .sapMITBFilter:last-child {
+  margin-right: 0;
+}
+
+.abilityNavigation .sapMITBFilter .sapMITBFilterIcon {
+  margin-top: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.abilityNavigation .sapMITBFilter .sapMITBText {
+  display: block;
+  max-width: 7.5rem;
+  overflow: visible !important;
+  text-align: center;
+  text-overflow: clip !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+}
+
+.abilityNavigation .sapMITBContent {
+  background: transparent;
+  border: 0;
+  padding: 1.25rem 0 0;
+}
+
+.sectionStack {
+  gap: 1rem;
+}
+
+.sectionCard,
+.passportHero {
+  background: var(--ability-surface);
+  border: 1px solid var(--ability-border);
+  border-radius: 0.875rem;
+  padding: 1.25rem;
+}
+
+.passportHero {
+  background: var(--ability-accent-soft);
+  border-color: #c3ddd7;
+}
+
+.sectionHeading {
+  color: var(--ability-text);
+  margin-bottom: 0.35rem;
+}
+
+.sectionToolbar {
+  background: var(--ability-surface);
+  border: 1px solid var(--ability-border);
+  border-radius: 0.875rem;
+  min-height: 4.75rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.taskItem {
+  padding: 1rem 1.25rem;
+  min-height: 4.5rem;
+}
+
+.itemTitle {
+  color: var(--ability-text);
+}
+
+.sapMList {
+  background: var(--ability-surface);
+  border: 1px solid var(--ability-border);
+  border-radius: 0.875rem;
+  overflow: hidden;
+}
+
+.sapMList .sapMLIB {
+  border-bottom-color: var(--ability-border);
+}
+
+.sapMList .sapMLIB:last-child {
+  border-bottom: 0;
+}
+
+.candidateSelect {
+  max-width: 24rem;
+}
+
+.passportStatus,
+.consentStatus {
+  margin-top: 1rem;
+}
+
+.calmMessage {
+  border-radius: 0.625rem;
+}
+
+.candidateGuideDialog .sapMDialogScrollCont {
+  padding: 1.25rem;
+}
+
+.candidateGuideDialog .guideIntro,
+.candidateGuideDialog .guideSteps {
+  color: var(--ability-muted);
+  line-height: 1.5;
+}
+
+.candidateGuideDialog .guideList {
+  margin: 1rem 0;
+  border: 1px solid var(--ability-border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.candidateGuideDialog .guideSteps {
+  background: var(--ability-surface-soft);
+  border: 1px solid var(--ability-border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.candidateGuideDialog .guideSteps .sapMTitle {
+  color: var(--ability-text);
+  margin-bottom: 0.5rem;
+}
+
+.sapMBtn:focus,
+.sapMSegBBtn:focus,
+.sapMInputBaseContentWrapper:focus-within,
+.sapMTextAreaInner:focus {
+  outline: 0.1875rem solid var(--ability-focus);
+  outline-offset: 0.125rem;
+}
+
+.sapMBtnEmphasized {
+  background: var(--ability-accent);
+  border-color: var(--ability-accent);
+}
+
+.sapMBtnEmphasized:hover {
+  background: #285f59;
+  border-color: #285f59;
+}
+
+.sapMPageEnableScrolling {
+  background: var(--ability-bg);
+}
+
+.sapMListNoData {
+  color: var(--ability-muted);
+  padding: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .abilityShell {
+    padding: 0.75rem;
+  }
+
+  .workspaceIntro,
+  .sectionCard,
+  .passportHero {
+    padding: 1rem;
+  }
+
+  .abilityNavigation .sapMITBFilter {
+    min-width: 5.25rem;
+    min-height: 5.25rem;
+  }
+
+  .abilityNavigation .sapMITBText {
+    font-size: 0.75rem;
+    max-width: 5.5rem;
+  }
+}

@@ -1,0 +1,192 @@
+<mvc:View
+    controllerName="UI.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page id="page" title="{i18n>appTitle}" class="abilityPage">
+        <headerContent>
+            <ObjectStatus text="{i18n>connectedToBackend}" state="Success" icon="sap-icon://connected" class="connectionStatus"/>
+            <Button icon="sap-icon://hint" type="Transparent" tooltip="{i18n>candidateGuideButton}" visible="{= ${view>/role} === 'candidate' }" press=".onOpenCandidateGuide" ariaLabelledBy="candidateGuideLabel"/>
+            <core:InvisibleText id="candidateGuideLabel" text="{i18n>candidateGuideButton}"/>
+        </headerContent>
+        <content>
+            <VBox class="abilityShell sapUiResponsiveContentPadding">
+                <VBox class="workspaceIntro sapUiMediumMarginBottom">
+                    <Text text="{i18n>workspaceLabel}" class="eyebrowText"/>
+                    <Title text="{view>/pageTitle}" level="H1" class="pageHeading"/>
+                    <Text text="{i18n>workspaceGuidance}" class="pageIntro"/>
+                </VBox>
+
+                <VBox class="roleSwitcher sapUiMediumMarginBottom">
+                    <Label text="{i18n>viewAs}" labelFor="roleSelector" class="sectionLabel"/>
+                    <SegmentedButton id="roleSelector" selectedKey="{view>/role}" selectionChange=".onRoleChange" width="100%">
+                    <items>
+                        <SegmentedButtonItem key="candidate" text="{i18n>candidate}"/>
+                        <SegmentedButtonItem key="employer" text="{i18n>employer}"/>
+                    </items>
+                    </SegmentedButton>
+                </VBox>
+
+                <IconTabBar selectedKey="{view>/section}" select=".onSectionSelect" expandable="false" class="abilityNavigation">
+                    <items>
+                        <IconTabFilter key="tasks" text="{i18n>tasks}" tooltip="{i18n>tasksTabHelp}" icon="sap-icon://task" visible="{= ${view>/role} === 'candidate' }">
+                            <VBox class="sectionStack">
+                            <VBox class="sectionCard">
+                                <Title text="{i18n>tasksSubtitle}" level="H2" class="sectionHeading"/>
+                                <Text text="{i18n>tasksGuidance}" class="sectionDescription"/>
+                            </VBox>
+                            <Select selectedKey="{view>/selectedCandidate/ID}" change=".onCandidateAccountChange" items="{view>/candidateAccounts}" width="100%" class="candidateSelect sapUiSmallMarginBottom">
+                                <core:Item key="{view>ID}" text="{view>displayName}"/>
+                            </Select>
+                            <List items="{view>/tasks}" growing="true" growingThreshold="10" noDataText="{i18n>noTasks}">
+                                <CustomListItem type="Active" press=".onTaskPress">
+                                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="taskItem">
+                                        <VBox width="75%">
+                                            <Title text="{view>title}" level="H3" class="itemTitle"/>
+                                            <Text text="{view>description}" maxLines="2" class="itemDescription"/>
+                                        </VBox>
+                                        <ObjectStatus text="{view>status}" state="{view>statusState}" icon="sap-icon://status-in-process"/>
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                            </VBox>
+                        </IconTabFilter>
+
+                        <IconTabFilter key="candidates" text="{i18n>candidateList}" icon="sap-icon://group" visible="{= ${view>/role} === 'employer' }">
+                            <VBox class="sectionStack">
+                            <Toolbar class="sectionToolbar">
+                                <VBox>
+                                    <Title text="{i18n>allCandidates}" level="H2" class="sectionHeading"/>
+                                    <Text text="{i18n>candidateListSubtitle}" class="sectionDescription"/>
+                                </VBox>
+                                <ToolbarSpacer/>
+                                <Button text="{i18n>addCandidate}" icon="sap-icon://add" press=".onAddCandidate" type="Emphasized"/>
+                            </Toolbar>
+                            <List items="{view>/candidates}" growing="true" growingThreshold="10" noDataText="{i18n>noCandidates}">
+                                <CustomListItem type="Active" press=".onCandidatePress">
+                                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="taskItem">
+                                        <VBox width="70%">
+                                            <Title text="{view>name}" level="H3" class="itemTitle"/>
+                                            <Text text="{view>headline}" class="itemDescription"/>
+                                        </VBox>
+                                        <ObjectStatus text="{view>consentLabel}" state="{view>consentState}" icon="sap-icon://locked"/>
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                            </VBox>
+                        </IconTabFilter>
+
+                        <IconTabFilter key="passport" text="{i18n>abilityPassport}" tooltip="{i18n>passportTabHelp}" icon="sap-icon://badge">
+                            <VBox class="sectionStack passportStack">
+                                <VBox class="passportHero">
+                                    <Text text="{i18n>abilityPassport}" class="eyebrowText"/>
+                                    <Title text="{view>/passportSubtitle}" level="H1" class="pageHeading"/>
+                                    <Text text="{i18n>passportGuidance}" class="pageIntro"/>
+                                    <ObjectStatus text="{view>/passport/scoreLabel}" state="Success" icon="sap-icon://accept" visible="{= ${view>/passportAllowed} &amp;&amp; !!${view>/passport/scoreLabel} }" class="passportStatus"/>
+                                </VBox>
+                                <MessageStrip visible="{= !!${view>/passportMessage} }" text="{view>/passportMessage}" type="{view>/passportMessageType}" showIcon="true" class="calmMessage sapUiSmallMarginBottom"/>
+                                <VBox class="sectionCard" visible="{= ${view>/passportAllowed} }">
+                                <Title text="{i18n>verifiedSkills}" level="H2" class="sectionHeading"/>
+                                <Text text="{i18n>verifiedSkillsGuidance}" class="sectionDescription"/>
+                                <List items="{view>/passport/verifiedSkills}" noDataText="{i18n>noVerifiedSkills}">
+                                    <StandardListItem title="{view>name}" description="{view>evidence}" info="{view>scoreLabel}" icon="sap-icon://accept" class="passportListItem"/>
+                                </List>
+                                </VBox>
+                                <VBox class="sectionCard" visible="{= ${view>/passportAllowed} }">
+                                <Title text="{i18n>evidence}" level="H2" class="sectionHeading"/>
+                                <Text text="{i18n>evidenceGuidance}" class="sectionDescription"/>
+                                <List items="{view>/passport/evidence}" noDataText="{i18n>noEvidence}">
+                                    <StandardListItem title="{view>title}" description="{view>description}" icon="sap-icon://document-text" type="Active" press=".onEvidencePress" class="passportListItem"/>
+                                </List>
+                                </VBox>
+                                <Toolbar visible="{= ${view>/role} === 'employer' &amp;&amp; !!${view>/selectedCandidate/ID} }" class="sectionToolbar decisionToolbar">
+                                    <Label text="{i18n>applicationStatus}" labelFor="applicationStatus"/>
+                                    <Select id="applicationStatus" selectedKey="{view>/decisionAction}" width="14rem">
+                                        <core:Item key="shortlisted" text="{i18n>shortlistCandidate}"/>
+                                        <core:Item key="in_progress" text="{i18n>applicationInProgress}"/>
+                                        <core:Item key="accepted" text="{i18n>accepted}"/>
+                                        <core:Item key="declined" text="{i18n>declined}"/>
+                                    </Select>
+                                    <ToolbarSpacer/>
+                                    <Button text="{i18n>saveDecision}" type="Emphasized" press=".onCreateDecision"/>
+                                </Toolbar>
+                            </VBox>
+                        </IconTabFilter>
+
+                        <IconTabFilter key="consent" text="{i18n>sharingConsent}" tooltip="{i18n>consentTabHelp}" icon="sap-icon://locked" visible="{= ${view>/role} === 'candidate' }">
+                            <VBox class="sectionStack">
+                                <VBox class="sectionCard">
+                                <Title text="{i18n>sharingConsent}" level="H2" class="sectionHeading"/>
+                                <Text text="{i18n>sharingConsentSubtitle}" class="sectionDescription"/>
+                                <MessageStrip text="{i18n>consentExplanation}" showIcon="true" type="Information" class="calmMessage sapUiSmallMarginBottom"/>
+                                <ObjectStatus text="{view>/consentStatus}" state="{view>/consentState}" icon="sap-icon://locked" class="consentStatus sapUiSmallMarginBottom"/>
+                                <Label text="{i18n>employerName}" labelFor="employerName"/>
+                                <Input id="employerName" value="{view>/employerName}" class="sapUiTinyMarginBottom sapUiSmallMarginTop"/>
+                                <Button text="{i18n>grantConsent}" type="Emphasized" press=".onGrantConsent"/>
+                                </VBox>
+                            </VBox>
+                        </IconTabFilter>
+
+                        <IconTabFilter key="applications" text="{i18n>applications}" tooltip="{i18n>applicationsTabHelp}" icon="sap-icon://workflow-tasks" visible="{= ${view>/role} === 'candidate' }">
+                            <MessageStrip text="{i18n>applicationsBackendNote}" type="Information" showIcon="true" class="sapUiSmallMarginBottom"/>
+                            <List items="{view>/applications}" noDataText="{i18n>noApplications}">
+                                <CustomListItem>
+                                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                                        <VBox>
+                                            <Title text="{view>employerName}" level="H5"/>
+                                            <Text text="{view>note}"/>
+                                        </VBox>
+                                        <HBox alignItems="Center">
+                                            <ObjectStatus text="{view>statusLabel}" state="{view>statusState}" class="sapUiTinyMarginEnd"/>
+                                            <Button text="{i18n>withdrawApplication}" type="Transparent" press=".onWithdrawApplication" visible="{view>canWithdraw}"/>
+                                        </HBox>
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                        </IconTabFilter>
+
+                        <IconTabFilter key="submissions" text="{i18n>submissions}" tooltip="{i18n>submissionsTabHelp}" icon="sap-icon://document-text" visible="{= ${view>/role} === 'candidate' }">
+                            <List items="{view>/submissions}" noDataText="{i18n>noSubmissions}">
+                                <CustomListItem>
+                                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                                        <VBox width="75%">
+                                            <Title text="{view>taskTitle}" level="H5"/>
+                                            <Text text="{view>answer}" maxLines="3"/>
+                                            <ObjectStatus text="{view>status}" state="{view>statusState}"/>
+                                        </VBox>
+                                        <Button text="{i18n>removeSubmission}" type="Transparent" press=".onRemoveSubmission"/>
+                                    </HBox>
+                                </CustomListItem>
+                            </List>
+                        </IconTabFilter>
+
+                        <IconTabFilter key="submit" text="{i18n>submitWork}" tooltip="{i18n>submitTabHelp}" icon="sap-icon://paper-plane" visible="{= ${view>/role} === 'candidate' }">
+                            <VBox class="sectionStack">
+                                <VBox class="sectionCard">
+                                <Title text="{i18n>submitWork}" level="H2" class="sectionHeading"/>
+                                <Title text="{view>/selectedTask/title}" level="H3" class="itemTitle"/>
+                                <Text text="{view>/selectedTask/description}" class="sectionDescription"/>
+                                <Label text="{i18n>workEvidence}" labelFor="workEvidence"/>
+                                <TextArea id="workEvidence" value="{view>/submission/evidence}" rows="8" growing="true" width="100%" class="sapUiTinyMarginTop sapUiTinyMarginBottom"/>
+                                <Button text="{i18n>submitWork}" type="Emphasized" press=".onSubmitWork" enabled="{= !!${view>/selectedTask/ID} }"/>
+                                </VBox>
+                            </VBox>
+                        </IconTabFilter>
+
+                        <IconTabFilter key="shortlist" text="{i18n>shortlist}" icon="sap-icon://favorite" visible="{= ${view>/role} === 'employer' }">
+                            <List items="{view>/shortlist}" noDataText="{i18n>noShortlist}">
+                                <StandardListItem title="{view>candidateName}" description="{view>decision}" info="{view>status}"/>
+                            </List>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+
+                <Toolbar class="sapUiSmallMarginTop">
+                    <ToolbarSpacer/>
+                    <Button text="{i18n>refresh}" icon="sap-icon://refresh" press=".onRefresh" type="Transparent"/>
+                </Toolbar>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
